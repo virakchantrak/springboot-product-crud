@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - include:
+      file: changes/001_create_brand_table.yaml
+
+  - include:
+      file: changes/002-create-model-table
+
+  - include:
+      file: changes/003-create-product-table
+
+  - include:
+      file: changes/004-create-sale-table

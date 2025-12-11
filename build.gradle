@@ -49,6 +49,9 @@ dependencies {
     // H2 database
     runtimeOnly 'com.h2database:h2'
 
+    // Liquid base
+    implementation 'org.liquibase:liquibase-core'
+
     // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
