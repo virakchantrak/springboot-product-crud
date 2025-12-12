@@ -46,7 +46,7 @@ public class BrandServiceImpl implements BrandService {
     public BrandResponseDTO findBrandById(String id) {
 
         BrandEntity brandEntity = brandRepository.findById(Long.valueOf(id)).orElseThrow(
-                () -> new ResourceNotFoundException("Brand", Integer.valueOf(id)));
+                () -> new ResourceNotFoundException("Brand", Long.valueOf(id)));
         return brandMapper.toResponse(brandEntity);
     }
 
@@ -54,7 +54,7 @@ public class BrandServiceImpl implements BrandService {
     public BrandResponseDTO updateBrandById(String id, BrandRequestDTO requestDTO) {
 
         BrandEntity brandEntity = brandRepository.findById(Long.valueOf(id)).orElseThrow(
-                () -> new ResourceNotFoundException("Brand", Integer.valueOf(id)));
+                () -> new ResourceNotFoundException("Brand", Long.valueOf(id)));
 
         Optional<BrandEntity> existByName = brandRepository.findByName(requestDTO.getName());
         if (existByName.isPresent() && !existByName.get().getId().equals(brandEntity.getId())) {
@@ -70,7 +70,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public String deleteBrandById(String id) {
         BrandEntity brandEntity = brandRepository.findById(Long.valueOf(id)).orElseThrow(
-                () -> new ResourceNotFoundException("Brand", Integer.valueOf(id)));
+                () -> new ResourceNotFoundException("Brand", Long.valueOf(id)));
         brandRepository.delete(brandEntity);
         return "Brand deleted successfully";
     }

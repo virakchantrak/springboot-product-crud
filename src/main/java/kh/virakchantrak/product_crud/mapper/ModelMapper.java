@@ -7,6 +7,8 @@ import kh.virakchantrak.product_crud.entity.BrandEntity;
 import kh.virakchantrak.product_crud.entity.ModelEntity;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface ModelMapper {
 
@@ -15,4 +17,6 @@ public interface ModelMapper {
     ModelResponseDTO toResponse(ModelEntity entity);
 
     BrandEntity toEntity(BrandResponseDTO responseDTO);
+
+    List<ModelResponseDTO> toResponse(List<ModelEntity> entities);
 }
