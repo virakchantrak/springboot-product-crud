@@ -1,6 +1,5 @@
 package kh.virakchantrak.product_crud.controller;
 
-import jakarta.annotation.security.RolesAllowed;
 import kh.virakchantrak.product_crud.dto.request.BrandRequestDTO;
 import kh.virakchantrak.product_crud.service.BrandService;
 import lombok.RequiredArgsConstructor;
@@ -24,33 +23,31 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BrandController {
 
-    private final BrandService brandService;
+    public final BrandService brandService;
 
-//    @PreAuthorize("hasAuthority('brand:write')") // NOT WORK
-//    @RolesAllowed("ROLE_ADMIN") // WORK
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('brand:write')")
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody BrandRequestDTO requestDTO) {
+    public ResponseEntity<?> create(@RequestBody BrandRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(brandService.createBrand(requestDTO));
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<?> getBrandById(@PathVariable String id) {
+    public ResponseEntity<?> getBrandById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.FOUND).body(brandService.findBrandById(id));
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<?> updateBrandById(@PathVariable String id, @RequestBody BrandRequestDTO requestDTO) {
+    public ResponseEntity<?> updateBrandById(@PathVariable String id, @RequestBody BrandRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.updateBrandById(id, requestDTO));
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<?> deleteBrandById(@PathVariable String id) {
+    public ResponseEntity<?> deleteBrandById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.deleteBrandById(id));
     }
 
     @GetMapping
-    private ResponseEntity<?> getBrands(@RequestParam Map<String, String> params) {
+    public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.getBrands(params));
     }
 }

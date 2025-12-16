@@ -21,25 +21,25 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ModelController {
 
-    private final ModelService modelService;
+    public final ModelService modelService;
 
     @PostMapping
-    private ResponseEntity<?> create(@RequestBody ModelRequestDTO requestDTO) {
+    public ResponseEntity<?> create(@RequestBody ModelRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(modelService.createModel(requestDTO));
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<?> getModelById(@PathVariable String id) {
+    public ResponseEntity<?> getModelById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.FOUND).body(modelService.getModelById(id));
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<?> updateModelById(@PathVariable String id, @RequestBody ModelRequestDTO requestDTO) {
+    public ResponseEntity<?> updateModelById(@PathVariable String id, @RequestBody ModelRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(modelService.updateModel(id, requestDTO));
     }
 
     @GetMapping
-    private ResponseEntity<?> getBrands(@RequestParam Map<String, String> params) {
+    public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params) {
         return ResponseEntity.status(HttpStatus.OK).body(modelService.getModels(params));
     }
 }
