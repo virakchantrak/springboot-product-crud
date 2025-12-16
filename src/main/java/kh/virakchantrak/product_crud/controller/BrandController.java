@@ -1,10 +1,12 @@
 package kh.virakchantrak.product_crud.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import kh.virakchantrak.product_crud.dto.request.BrandRequestDTO;
 import kh.virakchantrak.product_crud.service.BrandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,9 @@ public class BrandController {
 
     private final BrandService brandService;
 
+//    @PreAuthorize("hasAuthority('brand:write')") // NOT WORK
+//    @RolesAllowed("ROLE_ADMIN") // WORK
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     private ResponseEntity<?> create(@RequestBody BrandRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(brandService.createBrand(requestDTO));

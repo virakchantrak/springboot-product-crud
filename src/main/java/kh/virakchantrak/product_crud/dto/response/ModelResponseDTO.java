@@ -6,7 +6,7 @@ import lombok.Data;
 public class ModelResponseDTO {
     private String id;
     private String name;
-    private BrandResponseDTO brand;
     private String createdAt;
     private String updatedAt;
+    private BrandResponseDTO brand;
 }

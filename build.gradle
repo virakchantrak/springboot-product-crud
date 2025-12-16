@@ -35,7 +35,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     // Spring Security
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // MapStruct
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
