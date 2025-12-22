@@ -13,26 +13,27 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class InMemorySecurityConfig {
 
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("admin123"))
-                .authorities(RoleEnum.ADMIN.getAuthorities())
-                .build();
+  @Bean
+  public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+    UserDetails admin =
+        User.builder()
+            .username("admin")
+            .password(passwordEncoder.encode("admin123"))
+            .authorities(RoleEnum.ADMIN.getAuthorities())
+            .build();
 
-        UserDetails staff = User.builder()
-                .username("staff")
-                .password(passwordEncoder.encode("staff123"))
-                .authorities(RoleEnum.STAFF.getAuthorities())
-                .build();
+    UserDetails staff =
+        User.builder()
+            .username("staff")
+            .password(passwordEncoder.encode("staff123"))
+            .authorities(RoleEnum.STAFF.getAuthorities())
+            .build();
 
-        return new InMemoryUserDetailsManager(admin, staff);
-    }
+    return new InMemoryUserDetailsManager(admin, staff);
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }
