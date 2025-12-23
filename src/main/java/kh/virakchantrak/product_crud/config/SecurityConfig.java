@@ -1,5 +1,6 @@
 package kh.virakchantrak.product_crud.config;
 
+import kh.virakchantrak.product_crud.config.jwt.JwtLoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,7 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     http.csrf(csrf -> csrf.disable())
-        .addFilter(new JwtFilter(authenticationManager()))
+        .addFilter(new JwtLoginFilter(authenticationManager()))
         .authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
 
     return http.build();
