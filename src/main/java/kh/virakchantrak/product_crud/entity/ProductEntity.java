@@ -20,7 +20,7 @@ import java.util.List;
 @Table(name = "products")
 @Getter
 @Setter
-public class ProductEntity extends BaseEntity {
+public class ProductEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

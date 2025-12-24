@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "brands")
 @Getter
 @Setter
-public class BrandEntity extends BaseEntity {
+public class BrandEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

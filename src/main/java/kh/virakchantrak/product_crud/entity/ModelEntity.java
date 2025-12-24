@@ -21,7 +21,7 @@ import java.util.List;
 @Table(name = "models")
 @Getter
 @Setter
-public class ModelEntity extends BaseEntity {
+public class ModelEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
