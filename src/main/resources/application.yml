@@ -26,6 +26,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
 
+  jwt:
+    secret: ${JWT_SECRET:ad64e472322b87f37313725a11920a6752372f9c0247999efebb566532848160}
+    expiration: 7
+
   jackson:
     property-naming-strategy: SNAKE_CASE
 

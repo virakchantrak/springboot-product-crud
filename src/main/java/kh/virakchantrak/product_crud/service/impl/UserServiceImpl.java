@@ -3,10 +3,7 @@ package kh.virakchantrak.product_crud.service.impl;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import kh.virakchantrak.product_crud.config.AuthUser;
-import kh.virakchantrak.product_crud.entity.RoleEntity;
 import kh.virakchantrak.product_crud.entity.UserEntity;
 import kh.virakchantrak.product_crud.exception.ApiException;
 import kh.virakchantrak.product_crud.repository.UserRepository;
@@ -17,10 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-@Primary
 @Service
 @RequiredArgsConstructor
+@Primary
 public class UserServiceImpl implements UserService {
+
   private final UserRepository userRepository;
 
   @Override
@@ -29,31 +27,32 @@ public class UserServiceImpl implements UserService {
         userRepository
             .findByUsername(username)
             .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "User not found"));
+
+    // Map roles & permissions to authorities
+    Set<SimpleGrantedAuthority> authorities =
+        user.getRoles().stream()
+            .flatMap(
+                role -> {
+                  Set<SimpleGrantedAuthority> perms =
+                      role.getPermissions().stream()
+                          .map(p -> new SimpleGrantedAuthority(p.getName()))
+                          .collect(Collectors.toSet());
+                  perms.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+                  return perms.stream();
+                })
+            .collect(Collectors.toSet());
+
     AuthUser authUser =
         AuthUser.builder()
             .username(user.getUsername())
             .password(user.getPassword())
-            .authorities(getAuthorities(user.getRoles()))
+            .authorities(authorities)
             .accountNonExpired(user.isAccountNonExpired())
             .accountNonLocked(user.isAccountNonLocked())
             .credentialsNonExpired(user.isCredentialsNonExpired())
             .enabled(user.isEnabled())
             .build();
-    return Optional.ofNullable(authUser);
-  }
 
-  private Set<SimpleGrantedAuthority> getAuthorities(Set<RoleEntity> roles) {
-    Set<SimpleGrantedAuthority> authorities1 =
-        roles.stream()
-            .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
-            .collect(Collectors.toSet());
-    Set<SimpleGrantedAuthority> authorities =
-        roles.stream().flatMap(UserServiceImpl::getPermissions).collect(Collectors.toSet());
-    authorities.addAll(authorities1);
-    return authorities;
-  }
-
-  private static Stream<SimpleGrantedAuthority> getPermissions(RoleEntity role) {
-    return role.getPermissions().stream().map(p -> new SimpleGrantedAuthority(p.getName()));
+    return Optional.of(authUser);
   }
 }

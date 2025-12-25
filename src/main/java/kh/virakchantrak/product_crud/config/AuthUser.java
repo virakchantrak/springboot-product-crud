@@ -2,11 +2,9 @@ package kh.virakchantrak.product_crud.config;
 
 import java.util.Collection;
 import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,9 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @Builder
 public class AuthUser implements UserDetails {
-  private Set<? extends GrantedAuthority> authorities;
+
   private String username;
   private String password;
+  private Set<? extends GrantedAuthority> authorities;
   private boolean accountNonExpired;
   private boolean accountNonLocked;
   private boolean credentialsNonExpired;
@@ -33,7 +32,7 @@ public class AuthUser implements UserDetails {
   }
 
   @Override
-  public @Nullable String getPassword() {
+  public String getPassword() {
     return password;
   }
 
