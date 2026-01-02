@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-//    private final RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-//    private final UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Override
     public Optional<AuthUser> findUserByUsername(String username) {
@@ -68,52 +68,52 @@ public class UserServiceImpl implements UserService {
         return Optional.of(authUser);
     }
 
-//    @Override
-//    public UserResponseDTO createUser(CreateUserRequestDTO request) {
-//
-//        String username = request.getUsername() == null ? null : request.getUsername().trim();
-//        if (username == null || username.isBlank()) {
-//            throw new ApiException(HttpStatus.BAD_REQUEST, "Username is required");
-//        }
-//
-//        String password = request.getPassword();
-//        if (password == null || password.isBlank()) {
-//            throw new ApiException(HttpStatus.BAD_REQUEST, "Password is required");
-//        }
-//
-//        if (userRepository.existsByUsername(username)) {
-//            throw new ApiException(HttpStatus.CONFLICT, "Username already exists: " + username);
-//        }
-//
-//        Set<String> roleNames =
-//                (request.getRoles() == null || request.getRoles().isEmpty())
-//                        ? Set.of("STAFF")
-//                        : request.getRoles().stream().map(String::trim).collect(Collectors.toSet());
-//
-//        List<RoleEntity> roles = roleRepository.findByNameIn(roleNames);
-//
-//        if (roles.size() != roleNames.size()) {
-//            Set<String> found = roles.stream().map(RoleEntity::getName).collect(Collectors.toSet());
-//            Set<String> missing = new HashSet<>(roleNames);
-//            missing.removeAll(found);
-//            throw new ApiException(HttpStatus.BAD_REQUEST, "Invalid roles: " + missing);
-//        }
-//
-//        UserEntity user = new UserEntity();
-//        user.setFirstName(request.getFirstName());
-//        user.setLastName(request.getLastName());
-//        user.setUsername(username);
-//        user.setPassword(passwordEncoder.encode(password));
-//
-//        // server-controlled defaults
-//        user.setEnabled(true);
-//        user.setAccountNonLocked(true);
-//        user.setAccountNonExpired(true);
-//        user.setCredentialsNonExpired(true);
-//
-//        user.setRoles(new HashSet<>(roles));
-//
-//        UserEntity saved = userRepository.save(user);
-//        return userMapper.toResponse(saved);
-//    }
+    @Override
+    public UserResponseDTO createUser(CreateUserRequestDTO request) {
+
+        String username = request.getUsername() == null ? null : request.getUsername().trim();
+        if (username == null || username.isBlank()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Username is required");
+        }
+
+        String password = request.getPassword();
+        if (password == null || password.isBlank()) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Password is required");
+        }
+
+        if (userRepository.existsByUsername(username)) {
+            throw new ApiException(HttpStatus.CONFLICT, "Username already exists: " + username);
+        }
+
+        Set<String> roleNames =
+                (request.getRoles() == null || request.getRoles().isEmpty())
+                        ? Set.of("STAFF")
+                        : request.getRoles().stream().map(String::trim).collect(Collectors.toSet());
+
+        List<RoleEntity> roles = roleRepository.findByNameIn(roleNames);
+
+        if (roles.size() != roleNames.size()) {
+            Set<String> found = roles.stream().map(RoleEntity::getName).collect(Collectors.toSet());
+            Set<String> missing = new HashSet<>(roleNames);
+            missing.removeAll(found);
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Invalid roles: " + missing);
+        }
+
+        UserEntity user = new UserEntity();
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+
+        // server-controlled defaults
+        user.setEnabled(true);
+        user.setAccountNonLocked(true);
+        user.setAccountNonExpired(true);
+        user.setCredentialsNonExpired(true);
+
+        user.setRoles(new HashSet<>(roles));
+
+        UserEntity saved = userRepository.save(user);
+        return userMapper.toResponse(saved);
+    }
 }

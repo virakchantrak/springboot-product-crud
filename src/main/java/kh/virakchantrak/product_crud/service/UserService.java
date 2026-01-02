@@ -8,5 +8,5 @@ import kh.virakchantrak.product_crud.dto.response.UserResponseDTO;
 public interface UserService {
     Optional<AuthUser> findUserByUsername(String username);
 
-//    UserResponseDTO createUser(CreateUserRequestDTO request);
+    UserResponseDTO createUser(CreateUserRequestDTO request);
 }

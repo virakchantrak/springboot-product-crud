@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
-//    private final UserService userService;
-//
-//    @PreAuthorize("hasAuthority('ADMIN')")
-//    @PostMapping
-//    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequestDTO requestDTO) {
-//        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(requestDTO));
-//    }
+    private final UserService userService;
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequestDTO requestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(requestDTO));
+    }
 }
