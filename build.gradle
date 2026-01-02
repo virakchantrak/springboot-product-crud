@@ -50,7 +50,9 @@ dependencies {
     testImplementation "org.mockito:mockito-core:5.+"
 
     // H2 database
-    runtimeOnly 'com.h2database:h2'
+//    runtimeOnly 'com.h2database:h2'
+
+    runtimeOnly 'org.postgresql:postgresql'
 
     // Liquid base
     implementation 'org.liquibase:liquibase-core'

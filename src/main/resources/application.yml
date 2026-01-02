@@ -6,17 +6,10 @@ spring:
     name: PRODUCT-CRUD
 
   datasource:
-    url: jdbc:h2:mem:productcruddb
-    driver-class-name: org.h2.Driver
-    username: virak
-    password: root
-
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
+    url: jdbc:postgresql://localhost:5432/product-crud-db
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: Virak@123
 
   jpa:
     hibernate:
@@ -24,14 +17,14 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
 
   jwt:
     secret: ${JWT_SECRET:ad64e472322b87f37313725a11920a6752372f9c0247999efebb566532848160}
     expiration: 7
-
-  jackson:
-    property-naming-strategy: SNAKE_CASE
 
   liquibase:
     change-log: classpath:db/changelog/master.yaml

@@ -25,7 +25,7 @@ public class BrandController {
 
     public final BrandService brandService;
 
-    @PreAuthorize("hasAuthority('brand:write')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> create(@RequestBody BrandRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(brandService.createBrand(requestDTO));
