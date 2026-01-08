@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -47,17 +48,8 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        String username = extractUsername(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
-    }
-
     public String extractUsername(String token) {
         return extractClaims(token).getSubject();
-    }
-
-    private boolean isTokenExpired(String token) {
-        return extractClaims(token).getExpiration().before(new Date());
     }
 
     private Claims extractClaims(String token) {
@@ -67,4 +59,9 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
+    public List<String> extractAuthorities(String token) {
+        return extractClaims(token).get("authorities", List.class);
+    }
+
 }

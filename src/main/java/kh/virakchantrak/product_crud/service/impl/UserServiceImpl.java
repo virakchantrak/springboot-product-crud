@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -88,16 +89,26 @@ public class UserServiceImpl implements UserService {
         Set<String> roleNames =
                 (request.getRoles() == null || request.getRoles().isEmpty())
                         ? Set.of("STAFF")
-                        : request.getRoles().stream().map(String::trim).collect(Collectors.toSet());
+                        : request.getRoles().stream()
+                        .filter(Objects::nonNull)
+                        .map(String::trim)
+                        .filter(s -> !s.isBlank())
+                        .map(String::toUpperCase)
+                        .collect(Collectors.toSet());
 
         List<RoleEntity> roles = roleRepository.findByNameIn(roleNames);
 
-        if (roles.size() != roleNames.size()) {
-            Set<String> found = roles.stream().map(RoleEntity::getName).collect(Collectors.toSet());
-            Set<String> missing = new HashSet<>(roleNames);
-            missing.removeAll(found);
+        Set<String> found = roles.stream()
+                .map(RoleEntity::getName)
+                .collect(Collectors.toSet());
+
+        Set<String> missing = new HashSet<>(roleNames);
+        missing.removeAll(found);
+
+        if (!missing.isEmpty()) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Invalid roles: " + missing);
         }
+
 
         UserEntity user = new UserEntity();
         user.setFirstName(request.getFirstName());

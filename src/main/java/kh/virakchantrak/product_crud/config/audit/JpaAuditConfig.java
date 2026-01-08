@@ -1,4 +1,4 @@
-package kh.virakchantrak.product_crud.config;
+package kh.virakchantrak.product_crud.config.audit;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

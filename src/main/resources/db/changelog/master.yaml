@@ -1,12 +1,18 @@
 databaseChangeLog:
   - include:
-      file: changes/001_create_brand_table.yaml
+      file: db/changes/001_create_brand_table.yaml
 
   - include:
-      file: changes/002-create-model-table
+      file: db/changes/002_create_model_table.yaml
 
   - include:
-      file: changes/003-create-product-table
+      file: db/changes/003_create_product_table.yaml
 
   - include:
-      file: changes/004-create-sale-table
+      file: db/changes/004_create_sale_table.yaml
+
+  - include:
+      file: db/changes/005_create_role_table.yaml
+
+  - include:
+      file: db/changes/006_seed_roles.yaml
