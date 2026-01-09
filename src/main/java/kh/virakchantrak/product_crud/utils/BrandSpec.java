@@ -1,4 +1,4 @@
-package kh.virakchantrak.product_crud.util;
+package kh.virakchantrak.product_crud.utils;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

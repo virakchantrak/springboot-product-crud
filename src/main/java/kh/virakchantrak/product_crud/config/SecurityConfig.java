@@ -1,10 +1,12 @@
 package kh.virakchantrak.product_crud.config;
 
 import kh.virakchantrak.product_crud.config.jwt.JwtAuthenticationFilter;
+import kh.virakchantrak.product_crud.service.CustomAuthenticationProvider;
 import kh.virakchantrak.product_crud.service.impl.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -19,6 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+    private final CustomAuthenticationProvider customAuthProvider;
+
+    public SecurityConfig(CustomAuthenticationProvider customAuthProvider) {
+        this.customAuthProvider = customAuthProvider;
+    }
+
 
     @Bean
     public SecurityFilterChain filterChain(
@@ -54,6 +62,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
             throws Exception {
-        return config.getAuthenticationManager();
+        return new ProviderManager(customAuthProvider);
     }
 }

@@ -1,4 +1,4 @@
-package kh.virakchantrak.product_crud.util;
+package kh.virakchantrak.product_crud.utils;
 
 import kh.virakchantrak.product_crud.common.pagination.FilterParser;
 import org.springframework.stereotype.Component;
