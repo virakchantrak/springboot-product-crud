@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012
+      author: virak
+      changes:
+        - insert:
+            tableName: user_roles
+            columns:
+              - column: { name: user_id, valueNumeric: 1 }     # admin
+              - column: { name: role_id, valueNumeric: 1 }     # ADMIN
+
+        - insert:
+            tableName: user_roles
+            columns:
+              - column: { name: user_id, valueNumeric: 2 }     # staff
+              - column: { name: role_id, valueNumeric: 2 }     # STAFF

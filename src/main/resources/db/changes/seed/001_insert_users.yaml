@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010
+      author: virak
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: username, value: "admin" }
+              - column: { name: password, value: "$2a$12$kUShqXmi5A0RuWxsxm10buN8W5PZeEqq8H2rr2kGOV2aBwUwpheYK" } # password: admin123
+              - column: { name: account_non_expired, valueBoolean: true }
+              - column: { name: account_non_locked, valueBoolean: true }
+              - column: { name: credentials_non_expired, valueBoolean: true }
+              - column: { name: enabled, valueBoolean: true }
+              - column: { name: created_at, valueDate: "2026-01-09T00:00:00" }
+              - column: { name: updated_at, valueDate: "2026-01-09T00:00:00" }
+              - column: { name: created_by, value: "SYSTEM" }
+              - column: { name: updated_by, value: "SYSTEM" }
+
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: username, value: "staff" }
+              - column: { name: password, value: "$2a$12$.das48.5Akc74dy4KfOaKuAo4UKglRQLlNNYiVSWZULVAgUgxq2rq" } # password: staff123
+              - column: { name: account_non_expired, valueBoolean: true }
+              - column: { name: account_non_locked, valueBoolean: true }
+              - column: { name: credentials_non_expired, valueBoolean: true }
+              - column: { name: enabled, valueBoolean: true }
+              - column: { name: created_at, valueDate: "2026-01-09T00:00:00" }
+              - column: { name: updated_at, valueDate: "2026-01-09T00:00:00" }
+              - column: { name: created_by, value: "SYSTEM" }
+              - column: { name: updated_by, value: "SYSTEM" }

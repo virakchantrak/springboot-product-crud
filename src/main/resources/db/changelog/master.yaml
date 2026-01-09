@@ -8,3 +8,9 @@ databaseChangeLog:
   - include: { file: db/changes/007_create_permission_table.yaml }
   - include: { file: db/changes/008_create_user_roles_table.yaml }
   - include: { file: db/changes/009_create_role_permissions_table.yaml }
+
+  - include: { file: db/changes/seed/001_insert_users.yaml }
+  - include: { file: db/changes/seed/002_insert_roles.yaml }
+  - include: { file: db/changes/seed/003_insert_user_roles.yaml }
+  - include: { file: db/changes/seed/004_insert_permissions.yaml }
+  - include: { file: db/changes/seed/005_insert_role_permissions.yaml }
