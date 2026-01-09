@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(requestDTO));

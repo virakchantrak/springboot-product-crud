@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 003-create-product-table
+      id: 003
       author: virak
       changes:
         - createTable:

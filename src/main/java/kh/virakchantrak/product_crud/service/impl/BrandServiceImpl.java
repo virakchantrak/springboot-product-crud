@@ -1,24 +1,25 @@
 package kh.virakchantrak.product_crud.service.impl;
 
+import kh.virakchantrak.product_crud.common.conts.ErrorCode;
+import kh.virakchantrak.product_crud.common.pagination.PaginationHelper;
+import kh.virakchantrak.product_crud.common.pagination.PaginationResponseDTO;
 import kh.virakchantrak.product_crud.dto.request.BrandRequestDTO;
 import kh.virakchantrak.product_crud.dto.response.BrandResponseDTO;
-import kh.virakchantrak.product_crud.dto.response.PaginationResponseDTO;
 import kh.virakchantrak.product_crud.entity.BrandEntity;
 import kh.virakchantrak.product_crud.exception.ApiException;
 import kh.virakchantrak.product_crud.exception.ResourceNotFoundException;
 import kh.virakchantrak.product_crud.mapper.BrandMapper;
 import kh.virakchantrak.product_crud.repository.BrandRepository;
 import kh.virakchantrak.product_crud.service.BrandService;
-import kh.virakchantrak.product_crud.spec.BrandFilter;
-import kh.virakchantrak.product_crud.spec.BrandSpec;
-import kh.virakchantrak.product_crud.util.PageUtil;
+import kh.virakchantrak.product_crud.util.BrandFilter;
+import kh.virakchantrak.product_crud.util.BrandFilterParser;
+import kh.virakchantrak.product_crud.util.BrandSpec;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -28,13 +29,14 @@ public class BrandServiceImpl implements BrandService {
 
     private final BrandRepository brandRepository;
     private final BrandMapper brandMapper;
+    private final BrandFilterParser brandFilterParser;
 
     @Override
     public BrandResponseDTO createBrand(BrandRequestDTO requestDTO) {
 
         Optional<BrandEntity> existByName = brandRepository.findByName(requestDTO.getName());
         if (existByName.isPresent()) {
-            throw new ApiException(HttpStatus.CONFLICT, "Name already exist with: " + requestDTO.getName());
+            throw new ApiException(ErrorCode.C001);
         }
 
         BrandEntity brandEntity = brandMapper.toEntity(requestDTO);
@@ -77,47 +79,10 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public PaginationResponseDTO<BrandResponseDTO> getBrands(Map<String, String> params) {
-
-        // --- 1. Build filter ---
-        BrandFilter filter = new BrandFilter();
-        if (params.containsKey("name")) {
-            filter.setName(params.get("name"));
-        }
-        if (params.containsKey("id")) {
-            filter.setId(Long.valueOf(params.get("id")));
-        }
-
-        // --- 2. Pagination params ---
-        int pageLimit = PageUtil.DEFAULT_PAGE_LIMIT;
-        if (params.containsKey(PageUtil.PAGE_LIMIT)) {
-            pageLimit = Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
-        }
-
-        int pageNumber = PageUtil.DEFAULT_PAGE_NUMBER;
-        if (params.containsKey(PageUtil.PAGE_NUMBER)) {
-            pageNumber = Integer.parseInt(params.get(PageUtil.PAGE_NUMBER));
-        }
-
-        Pageable pageable = PageUtil.getPageable(pageNumber, pageLimit);
-
-        // --- 3. Specification ---
-        BrandSpec spec = new BrandSpec(filter);
-
-        // --- 4. Query DB ---
-        Page<BrandEntity> page = brandRepository.findAll(spec, pageable);
-
-        // --- 5. Map entities to DTOs ---
-        List<BrandResponseDTO> data = brandMapper.toResponse(page.getContent());
-
-        // --- 6. Build and return pagination response ---
-        return PaginationResponseDTO.<BrandResponseDTO>builder()
-                .data(data)
-                .totalElements(page.getTotalElements())
-                .totalPages(page.getTotalPages())
-                .page(page.getNumber() + 1)
-                .size(page.getSize())
-                .hasNext(page.hasNext())
-                .build();
+        BrandFilter filter = brandFilterParser.from(params);
+        Pageable pageable = PaginationHelper.pageable(params);
+        Page<BrandEntity> page = brandRepository.findAll(new BrandSpec(filter), pageable);
+       return PaginationHelper.toResponse(page, brandMapper::toResponse);
     }
 
 }

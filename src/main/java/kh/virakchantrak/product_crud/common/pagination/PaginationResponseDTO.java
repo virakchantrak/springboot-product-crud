@@ -1,4 +1,4 @@
-package kh.virakchantrak.product_crud.dto.response;
+package kh.virakchantrak.product_crud.common.pagination;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

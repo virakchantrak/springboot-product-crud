@@ -1,4 +1,4 @@
-package kh.virakchantrak.product_crud.util;
+package kh.virakchantrak.product_crud.common.pagination;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -31,21 +31,25 @@ public class BrandController {
         return ResponseEntity.status(HttpStatus.CREATED).body(brandService.createBrand(requestDTO));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getBrandById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.FOUND).body(brandService.findBrandById(id));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBrandById(@PathVariable String id, @RequestBody BrandRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.updateBrandById(id, requestDTO));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBrandById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.deleteBrandById(id));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params) {
         return ResponseEntity.status(HttpStatus.OK).body(brandService.getBrands(params));

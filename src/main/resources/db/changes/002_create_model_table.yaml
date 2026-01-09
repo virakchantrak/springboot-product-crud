@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 002-create-model-table
+      id: 002
       author: virak
       changes:
         - createTable:

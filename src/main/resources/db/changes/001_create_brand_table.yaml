@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 001-create-brand-table
+      id: 001
       author: virak
       changes:
         - createTable:

@@ -1,4 +1,4 @@
-package kh.virakchantrak.product_crud.common;
+package kh.virakchantrak.product_crud.common.conts;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

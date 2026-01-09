@@ -1,8 +1,8 @@
 package kh.virakchantrak.product_crud.service;
 
+import kh.virakchantrak.product_crud.common.pagination.PaginationResponseDTO;
 import kh.virakchantrak.product_crud.dto.request.ModelRequestDTO;
 import kh.virakchantrak.product_crud.dto.response.ModelResponseDTO;
-import kh.virakchantrak.product_crud.dto.response.PaginationResponseDTO;
 
 import java.util.Map;
 

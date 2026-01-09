@@ -1,13 +1,13 @@
 databaseChangeLog:
   - changeSet:
-      id: 005
+      id: 007
       author: virak
       changes:
         - createTable:
-            tableName: roles
+            tableName: permissions
             columns:
               - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true } }
-              - column: { name: name, type: VARCHAR(50), constraints: { nullable: false, unique: true } }
+              - column: { name: name, type: VARCHAR(100), constraints: { nullable: false, unique: true } }
               - column: { name: created_at, type: TIMESTAMP }
               - column: { name: updated_at, type: TIMESTAMP }
               - column: { name: created_by, type: VARCHAR(100) }

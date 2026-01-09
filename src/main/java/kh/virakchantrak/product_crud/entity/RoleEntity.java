@@ -21,7 +21,7 @@ import java.util.Set;
         uniqueConstraints = @UniqueConstraint(columnNames = "name")
 )
 @Getter @Setter
-public class RoleEntity {
+public class RoleEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

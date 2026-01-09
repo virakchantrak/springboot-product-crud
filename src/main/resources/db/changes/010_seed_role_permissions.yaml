@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010
+      author: virak
+      changes:
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column: { name: role_id, valueComputed: "(select id from roles where name='ADMIN')" }
+              - column: { name: permission_id, valueComputed: "(select id from permissions where name='WRITE')" }
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column: { name: role_id, valueComputed: "(select id from roles where name='STAFF')" }
+              - column: { name: permission_id, valueComputed: "(select id from permissions where name='READ')" }

@@ -1,13 +1,7 @@
 databaseChangeLog:
   - changeSet:
-      id: seed-roles
+      id: 006
       author: virak
       changes:
-        - insert:
-            tableName: roles
-            columns:
-              - column: { name: name, value: "ADMIN" }
-        - insert:
-            tableName: roles
-            columns:
-              - column: { name: name, value: "STAFF" }
+        - insert: { tableName: roles, columns: [ { name: name, value: ADMIN } ] }
+        - insert: { tableName: roles, columns: [ { name: name, value: STAFF } ] }

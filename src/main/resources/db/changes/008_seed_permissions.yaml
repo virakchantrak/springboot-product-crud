@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008
+      author: virak
+      changes:
+        - insert: { tableName: permissions, columns: [ { name: name, value: READ } ] }
+        - insert: { tableName: permissions, columns: [ { name: name, value: WRITE } ] }
