@@ -12,16 +12,13 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
+                    primaryKeyName: pk_sales
 
               - column:
                   name: product_id
                   type: BIGINT
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_sale_product
-                    referencedTableName: products
-                    referencedColumnNames: id
 
               - column:
                   name: quantity
@@ -31,18 +28,16 @@ databaseChangeLog:
 
               - column:
                   name: total_price
-                  type: DOUBLE
+                  type: DECIMAL(19,2)
                   constraints:
                     nullable: false
 
               - column:
                   name: sale_date
                   type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
 
-              # ===== Audit fields (from AuditEntity) =====
               - column:
                   name: created_at
                   type: TIMESTAMP
@@ -52,6 +47,8 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP
+                  constraints:
+                    nullable: false
 
               - column:
                   name: created_by
@@ -60,3 +57,10 @@ databaseChangeLog:
               - column:
                   name: updated_by
                   type: VARCHAR(100)
+
+        - addForeignKeyConstraint:
+            baseTableName: sales
+            baseColumnNames: product_id
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: fk_sales_product

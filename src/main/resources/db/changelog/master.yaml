@@ -1,39 +1,10 @@
 databaseChangeLog:
-  - include:
-      file: db/changes/001_create_brand_table.yaml
-
-  - include:
-      file: db/changes/002_create_model_table.yaml
-
-  - include:
-      file: db/changes/003_create_product_table.yaml
-
-  - include:
-      file: db/changes/004_create_sale_table.yaml
-
-  - include:
-      file: db/changes/005_create_role_table.yaml
-
-  - include:
-      file: db/changes/006_seed_roles.yaml
-
-  - include:
-      file: db/changes/007_create_permission_table.yaml
-
-  - include:
-      file: db/changes/008_seed_permissions.yaml
-
-  - include:
-      file: db/changes/009_create_role_permissions_table.yaml
-
-  - include:
-      file: db/changes/010_seed_role_permissions.yaml
-
-  - include:
-      file: db/changes/011_create_user_table.yaml
-
-  - include:
-      file: db/changes/012_create_user_roles_table.yaml
-
-  - include:
-      file: db/changes/013_seed_users.yaml
+  - include: { file: db/changes/001_create_brand_table.yaml }
+  - include: { file: db/changes/002_create_model_table.yaml }
+  - include: { file: db/changes/003_create_product_table.yaml }
+  - include: { file: db/changes/004_create_sale_table.yaml }
+  - include: { file: db/changes/005_create_user_table.yaml }
+  - include: { file: db/changes/006_create_role_table.yaml }
+  - include: { file: db/changes/007_create_permission_table.yaml }
+  - include: { file: db/changes/008_create_user_roles_table.yaml }
+  - include: { file: db/changes/009_create_role_permissions_table.yaml }

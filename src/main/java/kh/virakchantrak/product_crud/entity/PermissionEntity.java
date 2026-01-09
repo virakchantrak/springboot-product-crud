@@ -28,4 +28,3 @@ public class PermissionEntity extends AuditEntity {
     @Column(nullable = false, length = 100)
     private String name;
 }
-

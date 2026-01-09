@@ -12,16 +12,15 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    nullable: false
+                    primaryKeyName: pk_brands
 
               - column:
                   name: name
-                  type: VARCHAR(150)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
                     unique: true
 
-              # ===== Audit fields (from AuditEntity) =====
               - column:
                   name: created_at
                   type: TIMESTAMP
@@ -31,6 +30,8 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: TIMESTAMP
+                  constraints:
+                    nullable: false
 
               - column:
                   name: created_by

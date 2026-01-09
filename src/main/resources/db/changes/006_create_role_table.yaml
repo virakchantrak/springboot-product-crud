@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 002
+      id: 006
       author: virak
       changes:
         - createTable:
-            tableName: models
+            tableName: roles
             columns:
               - column:
                   name: id
@@ -12,17 +12,11 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    primaryKeyName: pk_models
+                    primaryKeyName: pk_roles
 
               - column:
                   name: name
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: brand_id
-                  type: BIGINT
+                  type: VARCHAR(50)
                   constraints:
                     nullable: false
 
@@ -46,9 +40,7 @@ databaseChangeLog:
                   name: updated_by
                   type: VARCHAR(100)
 
-        - addForeignKeyConstraint:
-            baseTableName: models
-            baseColumnNames: brand_id
-            referencedTableName: brands
-            referencedColumnNames: id
-            constraintName: fk_models_brand
+        - addUniqueConstraint:
+            tableName: roles
+            columnNames: name
+            constraintName: uk_roles_name

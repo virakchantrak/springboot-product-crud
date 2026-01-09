@@ -1,7 +1,0 @@
-databaseChangeLog:
-  - changeSet:
-      id: 006
-      author: virak
-      changes:
-        - insert: { tableName: roles, columns: [ { name: name, value: ADMIN } ] }
-        - insert: { tableName: roles, columns: [ { name: name, value: STAFF } ] }

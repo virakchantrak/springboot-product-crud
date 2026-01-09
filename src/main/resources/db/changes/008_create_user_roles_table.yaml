@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 10
+      id: 008
       author: virak
       changes:
         - createTable:
@@ -11,6 +11,7 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: false
+
               - column:
                   name: role_id
                   type: BIGINT
@@ -23,17 +24,15 @@ databaseChangeLog:
             constraintName: pk_user_roles
 
         - addForeignKeyConstraint:
-            constraintName: fk_user_roles_user
             baseTableName: user_roles
             baseColumnNames: user_id
             referencedTableName: users
             referencedColumnNames: id
-            onDelete: CASCADE
+            constraintName: fk_user_roles_user
 
         - addForeignKeyConstraint:
-            constraintName: fk_user_roles_role
             baseTableName: user_roles
             baseColumnNames: role_id
             referencedTableName: roles
             referencedColumnNames: id
-            onDelete: CASCADE
+            constraintName: fk_user_roles_role
