@@ -19,6 +19,7 @@ databaseChangeLog:
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
+                    unique: true
 
               - column:
                   name: created_at
@@ -39,8 +40,3 @@ databaseChangeLog:
               - column:
                   name: updated_by
                   type: VARCHAR(100)
-
-        - addUniqueConstraint:
-            tableName: roles
-            columnNames: name
-            constraintName: uk_roles_name

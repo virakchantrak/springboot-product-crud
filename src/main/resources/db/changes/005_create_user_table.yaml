@@ -19,6 +19,7 @@ databaseChangeLog:
                   type: VARCHAR(100)
                   constraints:
                     nullable: false
+                    unique: true
 
               - column:
                   name: password
@@ -69,8 +70,3 @@ databaseChangeLog:
               - column:
                   name: updated_by
                   type: VARCHAR(100)
-
-        - addUniqueConstraint:
-            tableName: users
-            columnNames: username
-            constraintName: uk_users_username

@@ -10,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,10 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(
-        name = "roles",
-        uniqueConstraints = @UniqueConstraint(columnNames = "name")
-)
+@Table(name = "roles")
 @Getter
 @Setter
 public class RoleEntity extends AuditEntity {
@@ -30,7 +26,7 @@ public class RoleEntity extends AuditEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)

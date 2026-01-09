@@ -19,6 +19,7 @@ databaseChangeLog:
                   type: VARCHAR(100)
                   constraints:
                     nullable: false
+                    unique: true
 
               - column:
                   name: created_at
@@ -39,8 +40,3 @@ databaseChangeLog:
               - column:
                   name: updated_by
                   type: VARCHAR(100)
-
-        - addUniqueConstraint:
-            tableName: permissions
-            columnNames: name
-            constraintName: uk_permissions_name
