@@ -10,43 +10,52 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-
-import java.util.Set;
-
 import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "users",
+@Table(
+        name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_users_username", columnNames = "username")
-        })
-@Getter @Setter
+        }
+)
+@Getter
+@Setter
 public class UserEntity extends AuditEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
+    @Column(nullable = false, length = 100)
     private String username;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String password;
 
-    private boolean accountNonExpired;
+    @Column(nullable = false)
+    private boolean accountNonExpired = true;
 
-    private boolean accountNonLocked;
+    @Column(nullable = false)
+    private boolean accountNonLocked = true;
 
-    private boolean credentialsNonExpired;
+    @Column(nullable = false)
+    private boolean credentialsNonExpired = true;
 
-    private boolean enabled;
+    @Column(nullable = false)
+    private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleEntity> roles;
+            joinColumns = @JoinColumn(name = "user_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false)
+    )
+    private Set<RoleEntity> roles = new HashSet<>();
 }
+
